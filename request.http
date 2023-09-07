@@ -1,0 +1,59 @@
+# Listagem de médicos
+GET http://localhost:8080/medicos
+Accept: application/json
+
+###
+# Delete de médicos
+DELETE http://localhost:8080/medicos/1
+Accept: application/json
+
+###
+# Listagem
+GET http://localhost:8080/medicos?sort=nome,desc
+Accept: application/json
+
+###
+# Listagem de médicos ordenação
+GET http://localhost:8080/medicos?sort=nome
+Accept: application/json
+
+###
+# Listagem de médicos paginação
+GET http://localhost:8080/medicos?size=1&page=1
+Accept: application/json
+
+###
+# Cadastro de Médico
+POST http://localhost:8080/medicos
+Accept: application/json
+Content-Type: application/json
+
+{
+  "nome": "Priscila Erica",
+  "email": "pri@email.com",
+  "crm": "123123",
+  "telefone": "985364596",
+  "especialidade": "CARDIOLOGIA",
+  "endereco": {
+    "logradouro": "Rua 2",
+    "bairro": "moradas parque",
+    "cidade": "maracaneu",
+    "cep": "91475253",
+    "uf": "CE",
+    "numero": "360",
+    "complemento": "casa"
+  }
+}
+
+###
+# Atualização de médicos
+PUT http://localhost:8080/medicos
+Accept: application/json
+Content-Type: application/json
+
+{
+  "id": 1,
+  "telefone": "33410273"
+}
+
+###
