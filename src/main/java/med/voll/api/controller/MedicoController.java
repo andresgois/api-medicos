@@ -1,6 +1,8 @@
 package med.voll.api.controller;
 
-import med.voll.api.medico.*;
+import med.voll.api.domain.medico.DadosListagemMedico;
+import med.voll.api.domain.medico.Medico;
+import med.voll.api.domain.medico.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
-import lombok.Getter;
 import med.voll.api.repository.MedicoRepository;
 import org.springframework.web.util.UriComponentsBuilder;
 
