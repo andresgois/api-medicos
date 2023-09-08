@@ -66,10 +66,9 @@ public final class Telefone {
 - Record
 ```
 public record Telefone(String ddd, String numero){}
-`
 ```
 
-## Padrão DAO
+### Padrão DAO
 - O padrão de projeto DAO, conhecido também por Data Access Object, é utilizado para persistência de dados, onde seu principal objetivo é separar regras de negócio de regras de acesso a banco de dados. Nas classes que seguem esse padrão, isolamos todos os códigos que lidam com conexões, comandos SQLs e funções diretas ao banco de dados, para que assim tais códigos não se espalhem por outros pontos da aplicação, algo que dificultaria a manutenção do código e também a troca das tecnologias e do mecanismo de persistência.
 
 ### Implementação
@@ -141,15 +140,24 @@ mysql -u root -p
 ## Migrations com Flyway
 - Dependências de duas versões do Flyway, o flyway-core e o flyway-mysql
 - Criaremos essa nova pasta em "main > resources". Com "Alt + Insert", vamos escolher a opção "Directory" e digita o nome da pasta: "db/migration".
+- Padrão de nome: `V1__`descricao_da_alteracao`.sql`
+- Quando iniciar o projeto ele já vai cria o projeto
+- Ele cria também uma tabela para controle de versão das migrations criadas
+- Migrations são imutáveis
+- Cada alteração deve ser feita em uma migration diferente
 - **Obs: Sempre interrompa o projeto ao usar migrations.**
 
-## Os problemas de receber/devolver entidades JPA
+### Os problemas de receber/devolver entidades JPA
 De fato é muito mais simples e cômodo não utilizar DTOs e sim lidar diretamente com as entidades JPA nos controllers. Porém, essa abordagem tem algumas desvantagens, inclusive causando vulnerabilidade na aplicação para ataques do tipo **Mass Assignment**.
 
-## Utilização da anotação @JsonIgnore
+### Embedded
+- Vamos usar Embeddable Attribute da JPA para que Endereco fique em uma classe separada, mas faça parte da mesma tabela de Medicos junto ao banco de dados.
+- Para que isso funcione, vamos acessar a classe Endereco e adicionar, no topo do código, a anotação @Embeddable logo acima da classe.
+
+### Utilização da anotação @JsonIgnore
 - Nessa situação, poderíamos utilizar a anotação @JsonIgnore, que nos ajuda a ignorar certas propriedades de uma classe Java quando ela for serializada para um objeto JSON.
 
-## Por exemplo, poderíamos traduzir para português os nomes desses parâmetros com as seguintes propriedades:
+### Por exemplo, poderíamos traduzir para português os nomes desses parâmetros com as seguintes propriedades:
 ```
 spring.data.web.pageable.page-parameter=pagina
 spring.data.web.pageable.size-parameter=tamanho
@@ -158,14 +166,16 @@ spring.data.web.sort.sort-parameter=ordem
 http://localhost:8080/medicos?tamanho=5&pagina=1&ordem=email,desc
 ```
 
-## Mass Assignment Attack 
+### Mass Assignment Attack 
 - ou Ataque de Atribuição em Massa, em português, ocorre quando um usuário é capaz de inicializar ou substituir parâmetros que não deveriam ser modificados na aplicação. Ao incluir parâmetros adicionais em uma requisição, sendo tais parâmetros válidos, um usuário mal-intencionado pode gerar um efeito colateral indesejado na aplicação.
 
-## Prototipo de tela
+## Tela
+
+### Prototipo de tela
 - https://www.figma.com/file/N4CgpJqsg7gjbKuDmra3EV/Voll.med?node-id=2%3A1007
 
-## Trello
+### Trello
 - https://trello.com/b/O0lGCsKb/api-voll-med
 
-## Curiosidades
+### Curiosidades
 - [JSON](https://www.json.org/json-pt.html)
