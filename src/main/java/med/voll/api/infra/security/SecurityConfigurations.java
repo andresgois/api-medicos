@@ -18,20 +18,24 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class SecurityConfigurations {
 
-   /* @Bean
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-         /*return http.csrf().disable()
+         /*
+         // funciona
+         return http.csrf().disable()
                  .sessionManagement()
                  .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                 .and().build();
+                 .and().build();*/
+        // funciona
         return http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .build();
-    }*/
+    }
 
+    /* funciona tbm
     //Processo de Autenticação Stateless
     @Bean // Exportar para que seja possível injetar em outra classe
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -44,7 +48,7 @@ public class SecurityConfigurations {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring().requestMatchers(new AntPathRequestMatcher("/login"));
-    }
+    }*/
 
 
     @Bean
