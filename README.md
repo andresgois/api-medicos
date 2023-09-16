@@ -356,6 +356,38 @@ public class LogFilter implements Filter {
 - O método `doFilter` é chamado pelo servidor automaticamente, sempre que esse filter tiver que ser executado, e a chamada ao método filterChain.doFilter indica que os próximos filters, caso existam outros, podem ser executados. A anotação @WebFilter, adicionada na classe, indica ao servidor em quais requisições esse filter deve ser chamado, baseando-se na URL da requisição.
 - No curso, utilizaremos outra maneira de implementar um filter, usando recursos do Spring que facilitam sua implementação.
 
+## authorizeRequests deprecated
+> Atenção!
+- Na versão 3.0.0 final do Spring Boot uma mudança foi feita no Spring Security, em relação aos códigos que restrigem o controle de acesso.
+- Ao longo das aulas o método securityFilterChain(HttpSecurity http), declarado na classe SecurityConfigurations, ficou com a seguinte estrutura:
+```
+@Bean
+public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+return http.csrf().disable()
+.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+.and().authorizeRequests()
+.antMatchers(HttpMethod.POST, "/login").permitAll()
+.anyRequest().authenticated()
+.and().build();
+}
+```
+- Entretanto, desde a versão 3.0.0 final do Spring Boot o método authorizeRequests() se tornou deprecated, devendo ser substituído pelo novo método authorizeHttpRequests(). Da mesma forma, o método antMatchers() deve ser substituído pelo novo método requestMatchers():
+
+```
+@Bean
+public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+return http.csrf().disable()
+.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+.and().authorizeHttpRequests()
+.requestMatchers(HttpMethod.POST, "/login").permitAll()
+.anyRequest().authenticated()
+.and().build();
+}
+```
+
+> Filter Chain:
+- Pode ser utilizado para bloquear uma requisição.
+- Representa o conjunto de filtros responsáveis por interceptar requisições.
 
 
 ## Tela
