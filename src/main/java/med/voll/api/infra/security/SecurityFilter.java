@@ -40,7 +40,7 @@ public class SecurityFilter extends OncePerRequestFilter {
 
             UsernamePasswordAuthenticationToken authetication = new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authetication);
-
+            System.out.println("LOGADO NA REQUISIÇAO");
         }
         //System.out.println(tokenJWT);
         // se essa linha não for executado ele trava e não segue adiante
