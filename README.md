@@ -447,6 +447,27 @@ return ResponseEntity.ok(new DadosDetalhamentoMedico(medico));
 @EnableMethodSecurity(securedEnabled = true)
 ```
 - Você pode conhecer mais detalhes sobre o recurso de method security na documentação do Spring Security, (disponível)[https://docs.spring.io/spring-security/reference/servlet/authorization/method-security.html]
+
+### Anotação @JsonAlias
+- Pode acontecer de um campo ser enviado no JSON com um nome diferente do atributo definido na classe DTO.
+- A anotação @JsonAlias serve para mapear “apelidos” alternativos para os campos que serão recebidos do JSON, sendo possível atribuir múltiplos alias:
+```
+public record DadosCompra(
+@JsonAlias({“produto_id”, “id_produto”}) Long idProduto,
+@JsonAlias({“data_da_compra”, “data_compra”}) LocalDate dataCompra
+){}
+```
+
+### Formatação de datas
+- Por exemplo, imagine que precisamos receber a data/hora da consulta no seguinte formato: dd/mm/yyyy hh:mm. Para que isso seja possível, precisamos indicar ao Spring que esse será o formato ao qual a data/hora será recebida na API, sendo que isso pode ser feito diretamente no DTO, com a utilização da anotação @JsonFormat:
+```
+@NotNull
+@Future
+@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+LocalDateTime data
+```
+
+
 ## Tela
 
 ### Protótipo de tela
