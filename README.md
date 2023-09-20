@@ -478,6 +478,20 @@ LocalDateTime data
 
 - Mas é importante ficarmos atentos, pois muitas vezes não é necessário criar um Service e, consequentemente, adicionar mais uma camada e complexidade desnecessária à nossa aplicação. Uma regra que podemos utilizar é a seguinte: se não houverem regras de negócio, podemos simplesmente realizar a comunicação direta entre os controllers e os repositories da aplicação.
 
+
+### Text Block
+- No nosso caso, montaremos uma consulta. Para facilitar a visualização, deixaremos a consulta quebrada linha por linha e usaremos o Text block. Isso nos permite digitar o código e quebrar as linhas de maneira mais simples, sem ter que concatenar tudo com "+".
+
+```
+@Query("""
+                select m from Medico m
+                where
+                m.ativo = true
+                and
+                m.especialidade = :especialidade
+                """)
+```
+
 ## Tela
 
 ### Protótipo de tela
