@@ -23,7 +23,7 @@ public class AgendaDeConsultas {
     @Autowired
     private List<ValidadorAgendamentoDeConsultas> validadores;
 
-    public void agendar(DadosAgendamentoConsulta dados){
+    public DadosDetalhamentoConsulta agendar(DadosAgendamentoConsulta dados){
         if(!pacienteRepository.existsById(dados.idPaciente())){
             throw new ValidacaoException("Id do paciente não existe");
         }
@@ -35,9 +35,11 @@ public class AgendaDeConsultas {
 
         var paciente = pacienteRepository.getReferenceById(dados.idPaciente());
         var medico = escolherMedico(dados);
-        var consulta = new Consuta(null, medico, paciente, dados.data(), null);
+        var consulta = new Consuta(null, medico, paciente, dados.data());
 
         consultaRepository.save(consulta);
+
+        return new DadosDetalhamentoConsulta(consulta);
     }
 
     private Medico escolherMedico(DadosAgendamentoConsulta dados) {
@@ -52,12 +54,12 @@ public class AgendaDeConsultas {
         return medicoRepository.escolherMedicoAleatorioLivreNaData(dados.especialidade(), dados.data());
     }
 
-    public void cancelar(DadosCancelamentoConsulta dados) {
+    /*public void cancelar(DadosCancelamentoConsulta dados) {
         if (!consultaRepository.existsById(dados.idConsulta())) {
             throw new ValidacaoException("Id da consulta informado não existe!");
         }
 
         var consulta = consultaRepository.getReferenceById(dados.idConsulta());
         consulta.cancelar(dados.motivo());
-    }
+    }*/
 }
