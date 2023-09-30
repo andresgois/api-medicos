@@ -3,7 +3,6 @@ package med.voll.api.domain.consulta;
 import med.voll.api.domain.consulta.validacoes.ValidadorAgendamentoDeConsultas;
 import med.voll.api.domain.exception.ValidacaoException;
 import med.voll.api.domain.medico.Medico;
-import med.voll.api.domain.paciente.Paciente;
 import med.voll.api.repository.ConsultaRepository;
 import med.voll.api.repository.MedicoRepository;
 import med.voll.api.repository.PacienteRepository;
@@ -50,7 +49,7 @@ public class AgendaDeConsultas {
             throw new ValidacaoException("Especialidade é obrigatória quando o médico for informado!");
         }
 
-        return medicoRepository.escolherMedicoAleatorioNaData(dados.especialidade(), dados.data());
+        return medicoRepository.escolherMedicoAleatorioLivreNaData(dados.especialidade(), dados.data());
     }
 
     public void cancelar(DadosCancelamentoConsulta dados) {

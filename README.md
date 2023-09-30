@@ -469,13 +469,9 @@ LocalDateTime data
 
 ### Service
 - O Padrão Service é muito utilizado na programação e seu nome é muito comentado. Mas apesar de ser um nome único, Service pode ser interpretado de várias maneiras: pode ser um Use Case (Application Service); um Domain Service, que possui regras do seu domínio; um Infrastructure Service, que usa algum pacote externo para realizar tarefas; etc.
-
 - Apesar da interpretação ocorrer de várias formas, a ideia por trás do padrão é separar as regras de negócio, as regras da aplicação e as regras de apresentação para que elas possam ser facilmente testadas e reutilizadas em outras partes do sistema.
-
 - Existem duas formas mais utilizadas para criar Services. Você pode criar Services mais genéricos, responsáveis por todas as atribuições de um Controller; ou ser ainda mais específico, aplicando assim o S do SOLID: Single Responsibility Principle (Princípio da Responsabilidade Única). Esse princípio nos diz que uma classe/função/arquivo deve ter apenas uma única responsabilidade.
-
 - Pense em um sistema de vendas, no qual provavelmente teríamos algumas funções como: Cadastrar usuário, Efetuar login, Buscar produtos, Buscar produto por nome, etc. Logo, poderíamos criar os seguintes Services: CadastroDeUsuarioService, EfetuaLoginService, BuscaDeProdutosService, etc.
-
 - Mas é importante ficarmos atentos, pois muitas vezes não é necessário criar um Service e, consequentemente, adicionar mais uma camada e complexidade desnecessária à nossa aplicação. Uma regra que podemos utilizar é a seguinte: se não houverem regras de negócio, podemos simplesmente realizar a comunicação direta entre os controllers e os repositories da aplicação.
 
 
@@ -491,6 +487,16 @@ LocalDateTime data
                 m.especialidade = :especialidade
                 """)
 ```
+
+### princípios SOLID
+> SOLID é uma sigla que representa cinco princípios de programação:
+- Single Responsibility Principle (Princípio da Responsabilidade Única)
+- Open-Closed Principle (Princípio Aberto-Fechado)
+- Liskov Substitution Principle (Princípio da Substituição de Liskov)
+- Interface Segregation Principle (Princípio da Segregação de Interface)
+- Dependency Inversion Principle (Princípio da Inversão de Dependência)
+
+
 
 ## Tela
 
