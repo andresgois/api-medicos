@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(of = "id")
 @Table(name = "consultas")
 @Entity(name = "Consulta")
-public class Consuta {
+public class Consulta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,11 +31,11 @@ public class Consuta {
 
     private LocalDateTime data;
 
-    /*@Column(name = "motivo_cancelamento")
+    @Column(name = "motivo_cancelamento")
     @Enumerated(EnumType.STRING)
     private MotivoCancelamento motivoCancelamento;
 
     public void cancelar(MotivoCancelamento motivo) {
         this.motivoCancelamento = motivo;
-    }*/
+    }
 }
