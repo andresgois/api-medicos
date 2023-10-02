@@ -18,7 +18,7 @@ public class ValidadorPacienteSemOutraConsultaNoDia  implements ValidadorAgendam
         var pacientePossuiOutraCOnsultaNoDia = consultaRepository
                 .existsByPacienteIdAndDataBetween(dados.idPaciente(), primeiroHorario, ultimoHorario);
 
-        if(!pacientePossuiOutraCOnsultaNoDia){
+        if(pacientePossuiOutraCOnsultaNoDia){
             throw new ValidacaoException("Paciente já poossui consulta agendada nesse dia");
         }
     }
