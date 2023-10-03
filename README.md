@@ -488,6 +488,33 @@ LocalDateTime data
                 """)
 ```
 
+## Spring Doc
+- [Doc official](https://springdoc.org/)
+
+```
+   <dependency>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+      <version>2.2.0</version>
+   </dependency>
+```
+- Url da doc
+  - http://server:port/context-path/swagger-ui.html
+  - http://server:port/context-path/v3/api-docs
+  - tem que liberar no filtro
+- [Swagger Local](http://localhost:8080/swagger-ui/index.html)
+- [JSON Doc Local](http://localhost:8080/v3/api-docs)
+
+- Em 2010 surgiu um projeto conhecido como Swagger, cujo objetivo era ser uma especificação open source para design de APIs Rest.
+- Ferramentas para auxiliar pessoas desenvolvedoras a implementar, visualizar e testar suas APIs, como o Swagger UI, Swagger Editor e Swagger Codegen
+- Em 2015, o Swagger foi comprado pela empresa SmartBear Software, que doou a parte da especificação para a fundação Linux. Por sua vez, a fundação renomeou o projeto para OpenAPI. Após isso, foi criada a OpenAPI Initiative, uma organização focada no desenvolvimento e evolução da especificação OpenAPI de maneira aberta e transparente.
+
+- A OpenAPI é hoje a especificação mais utilizada, e também a principal, para documentar uma API Rest. A documentação segue um padrão que pode ser descrito no formato yaml ou JSON, facilitando a criação de ferramentas que consigam ler tais arquivos e automatizar a criação de documentações, bem como a geração de códigos para consumo de uma API.
+
+- Você pode obter mais detalhes no [site oficial da OpenAPI Initiative.](https://www.openapis.org/)
+
+
+
 ### princípios SOLID
 > SOLID é uma sigla que representa cinco princípios de programação:
 - Single Responsibility Principle (Princípio da Responsabilidade Única)
