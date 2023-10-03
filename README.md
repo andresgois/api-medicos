@@ -513,6 +513,25 @@ LocalDateTime data
 
 - Você pode obter mais detalhes no [site oficial da OpenAPI Initiative.](https://www.openapis.org/)
 
+### Autenticação token no swagger
+- Adicionar a anotação a cada endpoint ou ao constroller
+```
+@Operation(security = { @SecurityRequirement(name = "bearer-key") })
+```
+- Criar uma classe de configuração para permitir o token no swagger
+```
+@Bean
+ public OpenAPI customOpenAPI() {
+   return new OpenAPI()
+          .components(new Components()
+          .addSecuritySchemes("bearer-key",
+          new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("bearer").bearerFormat("JWT")));
+}
+```
+
+- Vantagens de se gerar uma documentação automatizada de uma API Rest.
+  - Possibilidade de testar a API.
+  - Facilidade para clientes se integrarem a ela.
 
 
 ### princípios SOLID
