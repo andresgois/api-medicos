@@ -533,6 +533,50 @@ LocalDateTime data
   - Possibilidade de testar a API.
   - Facilidade para clientes se integrarem a ela.
 
+## Testes
+- Para testar uma classe Repository, usaremos alguns recursos do Spring Boot voltados a testes automatizados. Já que queremos testar um Repository, precisamos inserir a anotação @DataJpaTest nela.
+- A anotação @DataJpaTest é utilizada para testar uma interface Repository.
+- Em meio aos detalhes do erro, podemos notar que a falha aconteceu na hora de substituir o DataSource com um banco de dados embutido para testes.
+- Em seguida, ele dá uma sugestão: se quisermos testar usando um banco de dados embutido, precisamos adicioná-lo como uma dependência do projeto.
+
+- Toda vez que fizermos um teste que acessa o banco de dados, **temos duas abordagens** possíveis para usar. Por padrão, o Spring não usará o mesmo banco de dados da aplicação, mas um banco de dados in-memory, ou seja, um banco embutido (embedded). Este pode ser o H2, o Derby ou qualquer outro banco de dados embutido em memória.
+
+- Foi por isso que o teste falhou: o Spring Boot procurou e não encontrou uma dependência no banco de dados em memória. Assim, ele lança uma exception.
+- Por que é interessante usarmos um banco de dados in-memory? A vantagem é que ele é mais rápido, pois roda em memória em vez de ser em disco, como um banco de dados tradicional (o MySQL, por exemplo).
+
+- Já a desvantagem é que usamos bancos de dados distintos para o projeto e para o teste. Pode ser que o teste funcione no H2, por exemplo, mas o projeto apresente algum erro. Isso acontece porque usamos um banco de dados distinto.
+
+- No nosso caso, podemos solicitar que o Spring não use o banco de dados em memória, mas o próprio banco de dados da aplicação. Isso resultará em um teste que seja o mais fiel possível ao nosso ambiente. Usaremos essa opção. A desvantagem dele é que o teste será um pouco mais lento, ainda que mais fidedigno.
+
+- Para usar essa abordagem, precisamos inserir a anotação @AutoConfigureTestDatabase(). Como parâmetro, escreveremos replace = e pressionaremos "CTRL + Espaço" para receber as sugestões automáticas. Uma delas é a "Replace.NONE". Escolheremos esta pressionando o "Enter" e veremos que o parâmetro mudou para replace = AutoConfigureTestDatabase.Replace.NONE
+
+- Com isso, estamos indicando que queremos fazer uma configuração do banco de dados de teste e pedindo para não substituir as configurações do banco de dados pelas do banco em memória.
+
+- Feita a substituição, tentaremos rodar o teste novamente para ver se o erro persiste. Após clicar com o botão direito do mouse e selecionar "Run 'MedicoRepositoryTest'", observaremos que o teste foi concluído com sucesso.
+
+## Testes com in-memory database
+- Como citado no vídeo anterior, podemos realizar os testes de interfaces repository utilizando um banco de dados em memória, como o H2, ao invés de utilizar o mesmo banco de dados da aplicação.
+
+- Caso você queira utilizar essa estratégia de executar os testes com um banco de dados em memória, será necessário incluir o H2 no projeto, adicionando a seguinte dependência no arquivo pom.xml:
+```
+<dependency>
+  <groupId>com.h2database</groupId>
+  <artifactId>h2</artifactId>
+  <scope>runtime</scope>
+</dependency>
+```
+- E também deve remover as anotações @AutoConfigureTestDatabase e @ActiveProfiles na classe de teste, deixando-a apenas com a anotação @DataJpaTest:
+```
+@DataJpaTest
+class MedicoRepositoryTest {
+//resto do código permanece igual
+}
+```
+- Você também pode apagar o arquivo application-test.properties, pois o Spring Boot realiza as configurações de url, username e password do banco de dados H2 de maneira automática.
+
+- Os métodos de teste geralmente são divididos em três blocos: uma primeira parte chamada de "given" ou "arrange", uma segunda parte chamada "when" ou "act" e, por fim, "then" ou "assert".
+
+- Elas servem para indicar que "dado que" temos tais dados, "quando" dispararmos alguma ação, "este" é o resultado esperado. Estas são as três partes de um teste: aquela em que cadastramos as informações, a em que executamos a ação que desejamos testar e aquela em que verificamos se o resultado é o esperado.
 
 ### princípios SOLID
 > SOLID é uma sigla que representa cinco princípios de programação:
