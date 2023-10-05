@@ -586,6 +586,19 @@ class MedicoRepositoryTest {
 - Interface Segregation Principle (Princípio da Segregação de Interface)
 - Dependency Inversion Principle (Princípio da Inversão de Dependência)
 
+## Testes
+- Injetaremos mais uma classe utilitária além de MockMvc chamada private JacksonTester<> que possui os generics com o tipo de objeto que irá trabalhar. Em nosso caso, deverá ser do mesmo tipo DadosAgendamentoConsulta recebido no método agendar() do ConsultaController.
+- Em nosso teste, deveremos ter os dois JacksonTester<> para simularmos o JSON de entrada e o de saída que é devolvido.
+- Teremos um erro indicando que o **Jacksontester<>** não foi encontrado, pois para podermos injetá-lo, é preciso ter uma outra anotação em cima da classe chamada **@AutoConfigureJsonTesters**.
+- Colocaremos a anotação @MockBean.
+- Com isso, diremos ao Spring que, quando precisar injetar este objeto no controller, deve aplicar o mock, e não injetar uma agendaDeConsultas de verdade.
+- Veio o código 200 mas o corpo chegou vazio.
+- Isso aconteceu porque, em nosso controller, chamamos a agenda.agendar(), mas nosso agenda é um mock, que por padrão devolve nulo.
+- Então, nosso dto está nulo, e no momento de fazermos a conversão, esse dto devolvido pelo Spring é null.
+- É um mock mas precisaremos simular dizendo que, quando o método agendar() for disparado, devolveremos as informações dados.
+- Para fazermos essa configuração, voltaremos ao arquivo de teste e, antes de dispararmos a requisição de fato, usaremos o Mockito, que é a biblioteca de mocks que o Spring usa por "debaixo dos panos".
+- Estamos rodando todos os testes de maneira isolada, mas para rodarmos todos os que existem no projeto, abriremos o menu lateral com a lista de arquivos à esquerda, clicaremos em "src > test > java" com o botão direito do mouse, e escolheremos a opção "Run 'all Tests'".
+
 
 
 ## Tela
