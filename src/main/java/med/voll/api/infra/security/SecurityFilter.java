@@ -1,6 +1,5 @@
 package med.voll.api.infra.security;
 
-import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -36,9 +35,10 @@ public class SecurityFilter extends OncePerRequestFilter {
             String subject = tokenService.getSubject(tokenJWT);
             System.out.println(subject);
 
-            UserDetails usuario = usuarioRepository.findByLogin(subject);
+            var usuario = usuarioRepository.findByLogin(subject);
 
-            UsernamePasswordAuthenticationToken authetication = new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
+            UsernamePasswordAuthenticationToken authetication =
+                    new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authetication);
             System.out.println("LOGADO NA REQUISIÇAO");
         }
